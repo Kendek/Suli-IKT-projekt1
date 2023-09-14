@@ -12,22 +12,22 @@ class Rendezés:
         s = 0
         S = True
         barmi_mas = 0
-        for x in range(len(list)):
+        for x in list:
+            y = ''.join(map(str, x))
             try:
-                int(x)
+                int(y)
             except ValueError:
                 I = False
             if (I):
                 i += 1
             else:
-                u = x.isalpha()
+                u = y.isalpha()
                 if (u):
                     s += 1
                 else:
                     barmi_mas += 1
                     break
 
-            
         aOi = ""
         if (s == len(list)):
             aOi = "string"
