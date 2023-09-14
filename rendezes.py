@@ -1,24 +1,33 @@
 class Rendezés:
-    def __init__(self):  #Beolvassuk a ki.txt
+    def __init__(self, allomanynev):  #Beolvassuk a ki.txt
         self.adatok = []
-        with open("ki.txt", "r", encoding="UTF8") as file:
+        with open(allomanynev, "r", encoding="UTF8") as file:
             for x in file:
-                self.adatok.append(x.strip(";"))
+                self.adatok.append(x.strip(";").split(";"))
 
 
     def AlphaOrInt(self, list):  #Eldönti hogy szám vagy szöveg
         i = 0
+        I = True
         s = 0
+        S = True
         barmi_mas = 0
         for x in range(len(list)):
-            if (x.isalpha()):
-                s += 1
-            if (x.isnumeric()):
-                i += 1    
+            try:
+                int(x)
+            except ValueError:
+                I = False
+            if (I):
+                i += 1
             else:
-                barmi_mas = 1
-                break
-        
+                u = x.isalpha()
+                if (u):
+                    s += 1
+                else:
+                    barmi_mas += 1
+                    break
+
+            
         aOi = ""
         if (s == len(list)):
             aOi = "string"
@@ -33,5 +42,5 @@ class Rendezés:
         print(r.AlphaOrInt(self.adatok)) # Valami hiba van az isalpha() résznél
 
 
-r = Rendezés()
+r = Rendezés("ki.txt")
 r.Input()
