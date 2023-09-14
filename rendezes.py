@@ -39,7 +39,7 @@ class Rendezés:
         return aOi
     
     def Input(self):
-        print(r.AlphaOrInt(self.adatok)) # Valami hiba van az isalpha() résznél
+        print(r.AlphaOrInt(self.adatok))
 
 
 r = Rendezés("ki.txt")
