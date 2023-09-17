@@ -7,6 +7,7 @@ class Rendezés:
 
 
     def AlphaOrInt(self, list):  #Eldönti hogy szám vagy szöveg
+        
         i = 0
         I = True
         s = 0
@@ -15,28 +16,28 @@ class Rendezés:
         for x in list:
             y = ''.join(map(str, x))
             try:
-                int(y)
+                if y.startswith('-'):
+                    int(y[1:])
+                else:
+                    int(y)
             except ValueError:
                 I = False
             if (I):
                 i += 1
             else:
-                u = y.isalpha()
-                if (u):
+                S = y.isalpha()
+                if (S):
                     s += 1
                 else:
                     barmi_mas += 1
                     break
 
-        aOi = ""
         if (s == len(list)):
-            aOi = "string"
+            return "string"
         if (i == len(list)):
-            aOi = "int"
+            return "int"
         if (barmi_mas == 1):
-            aOi = "Hiba"
-
-        return aOi
+            return "Hiba"
     
     def Input(self):
         print(r.AlphaOrInt(self.adatok))
