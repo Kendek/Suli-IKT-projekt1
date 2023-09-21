@@ -1,9 +1,10 @@
 class Rendezés:
-    def __init__(self, allomanynev):  #Beolvassuk a ki.txt
-        self.adatok = []
+    def Beolvas(self, allomanynev):  #Beolvassuk a ki.txt
+        self.alap = []
         with open(allomanynev, "r", encoding="UTF8") as file:
-            for x in file:
-                self.adatok.append(x.strip(";").split(";"))
+           self.alap = file.read().split(";")
+        del self.alap[-1]
+        
 
 
     def AlphaOrInt(self, list):  #Eldönti hogy szám vagy szöveg    
@@ -13,7 +14,7 @@ class Rendezés:
         S = True
         barmi_mas = 0
         for x in list:
-            y = ''.join(map(str, x))
+            y = ''.join(x)
             try:
                 if y.startswith('-'): #Negatív számokat is int-ként kezeli
                     int(y[1:])
@@ -39,7 +40,7 @@ class Rendezés:
             return "Hiba"
     
 
-    def BubbleSortInt(self, numbers): #Valami teljesen gatya itt
+    def SortInt(self, numbers): #Valami teljesen gatya itt
         
         for i in range(len(numbers)):
             for j in range(i+1,len(numbers)):
@@ -49,9 +50,11 @@ class Rendezés:
         
 
     def Input(self):
-        print(r.AlphaOrInt(self.adatok))
-        print(r.BubbleSortInt(self.adatok))
+        print(r.AlphaOrInt(self.alap))
+        #print(r.SortInt(self.adatok))
+       
 
 
-r = Rendezés("ki2.txt")
+r = Rendezés()
+r.Beolvas("ki.txt")
 r.Input()
