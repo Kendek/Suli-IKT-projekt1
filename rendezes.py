@@ -57,7 +57,7 @@ class Rendezés:
         if (msg == "Hiba"):
             print("Hibás a fájl beviteli karakterlánca!")
 
-    def SimpleSortInt(self, lst): #Valami teljesen gatya itt
+    def SortInt(self, lst):     #Int növekvő sorrend
         
         for i in range(len(lst)):
             for j in range(i+1,len(lst)):
@@ -65,7 +65,15 @@ class Rendezés:
                     lst[i], lst[j] = lst[j], lst[i]
         return lst
     
-    def SimpleSortStr(self, lst):
+    def ReverseSortInt(self, lst):      #Int csökkenőő sorrend
+        
+        for i in range(len(lst)):
+            for j in range(i+1,len(lst)):
+                if (lst[i] < lst[j]):
+                    lst[i], lst[j] = lst[j], lst[i]
+        return lst
+    
+    def SortStr(self, lst):     #String növekvő sorrend
        
         for w in range(len(lst)):
             lst[w] = lst[w].lower()
@@ -77,11 +85,28 @@ class Rendezés:
         
         return lst
 
+    def ReverseSortStr(self, lst):     #String csökkenő sorrend
+       
+        for w in range(len(lst)):
+            lst[w] = lst[w].lower()
+
+        for n in range(len(lst)-1, 0, -1):
+            for i in range(n):
+                if lst[i] < lst[i + 1]:
+                    lst[i], lst[i + 1] = lst[i + 1], lst[i]
+        
+        return lst
+
+
+
+
 
     def Input(self):    #Teszt function
         print(r.AlphaOrInt(self.split))
-        #print(r.SimpleSortInt(self.szam))
-        print(r.SimpleSortStr(self.szoveg))
+        #print(r.SortInt(self.szam))
+        #print(r.ReverseSortInt(self.szam))
+        print(r.SortStr(self.szoveg))
+        print(r.ReverseSortStr(self.szoveg))
        
        
 
