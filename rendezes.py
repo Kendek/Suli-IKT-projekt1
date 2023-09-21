@@ -3,8 +3,11 @@ class Rendezés:
         self.alap = []
         with open(allomanynev, "r", encoding="UTF8") as file:
            self.alap = file.read().split(";")
-        del self.alap[-1]
+        del self.alap[-1]  #Alap lista, kivettem az üres sort
         
+        self.split = []
+        for x in self.alap:
+            self.split.append(x.strip("-"))
 
 
     def AlphaOrInt(self, list):  #Eldönti hogy szám vagy szöveg    
@@ -15,11 +18,8 @@ class Rendezés:
         barmi_mas = 0
         for x in list:
             y = ''.join(x)
-            try:
-                if y.startswith('-'): #Negatív számokat is int-ként kezeli
-                    int(y[1:])
-                else:
-                    int(y)
+            try:     
+                int(y)
             except ValueError:
                 I = False
             if (I):
@@ -40,21 +40,43 @@ class Rendezés:
             return "Hiba"
     
 
-    def SortInt(self, numbers): #Valami teljesen gatya itt
+    def Listak(self):   #Külön listát csinál ha int vagy ha string
+
+        msg = r.AlphaOrInt(self.split)
+        self.szoveg = []
+        self.szam = []
+
+        if (msg == "string"):
+            for x in self.alap:
+                self.szoveg.append(x)
+
+        if (msg == "int"):
+            for x in self.alap:
+                self.szam.append(int(x))
+
+        if (msg == "Hiba"):
+            print("Hibás a fájl beviteli karakterlánca!")
+
+    def SimpleSortInt(self, numbers): #Valami teljesen gatya itt
         
         for i in range(len(numbers)):
             for j in range(i+1,len(numbers)):
                 if (numbers[i] > numbers[j]):
                     numbers[i], numbers[j] = numbers[j], numbers[i]
         return numbers
+    
+    def SimpleSortStr(self, words):
+
         
 
-    def Input(self):
-        print(r.AlphaOrInt(self.alap))
-        #print(r.SortInt(self.adatok))
+    def Input(self):    #Teszt function
+        print(r.AlphaOrInt(self.split))
+        print(r.SimpleSortInt(self.szam))
        
 
 
 r = Rendezés()
 r.Beolvas("ki.txt")
+r.Listak()
+
 r.Input()
