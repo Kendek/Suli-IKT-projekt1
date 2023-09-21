@@ -57,21 +57,32 @@ class Rendezés:
         if (msg == "Hiba"):
             print("Hibás a fájl beviteli karakterlánca!")
 
-    def SimpleSortInt(self, numbers): #Valami teljesen gatya itt
+    def SimpleSortInt(self, lst): #Valami teljesen gatya itt
         
-        for i in range(len(numbers)):
-            for j in range(i+1,len(numbers)):
-                if (numbers[i] > numbers[j]):
-                    numbers[i], numbers[j] = numbers[j], numbers[i]
-        return numbers
+        for i in range(len(lst)):
+            for j in range(i+1,len(lst)):
+                if (lst[i] > lst[j]):
+                    lst[i], lst[j] = lst[j], lst[i]
+        return lst
     
-    def SimpleSortStr(self, words):
+    def SimpleSortStr(self, lst):
+       
+        for w in range(len(lst)):
+            lst[w] = lst[w].lower()
 
+        for n in range(len(lst)-1, 0, -1):
+            for i in range(n):
+                if lst[i] > lst[i + 1]:
+                    lst[i], lst[i + 1] = lst[i + 1], lst[i]
         
+        return lst
+
 
     def Input(self):    #Teszt function
         print(r.AlphaOrInt(self.split))
-        print(r.SimpleSortInt(self.szam))
+        #print(r.SimpleSortInt(self.szam))
+        print(r.SimpleSortStr(self.szoveg))
+       
        
 
 
