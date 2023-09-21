@@ -98,21 +98,81 @@ class Rendezés:
         return lst
 
 
+    def CocktailSort(self, lst):    #Választott algoritmus, Koktél növekvő rendezés (int-re és string-re is alkalmazható)
+        n = len(lst)
+        swapped = True
+        start = 0
+        end = n-1
+        while (swapped == True):
+    
+            swapped = False
 
+            for i in range(start, end):
+                if (lst[i] > lst[i + 1]):
+                    lst[i], lst[i + 1] = lst[i + 1], lst[i]
+                    swapped = True
+
+            if (swapped == False):
+                break
+    
+            swapped = False
+            end = end-1
+    
+            for i in range(end-1, start-1, -1):
+                if (lst[i] > lst[i + 1]):
+                    lst[i], lst[i + 1] = lst[i + 1], lst[i]
+                    swapped = True
+    
+            start = start + 1
+
+        return lst
+
+
+    def ReverseCocktailSort(self, lst):    #Választott algoritmus, Koktél csökkenő rendezés (int-re és string-re is alkalmazható)
+        n = len(lst)
+        swapped = True
+        start = 0
+        end = n-1
+        while (swapped == True):
+    
+            swapped = False
+
+            for i in range(start, end):
+                if (lst[i] < lst[i + 1]):
+                    lst[i], lst[i + 1] = lst[i + 1], lst[i]
+                    swapped = True
+
+            if (swapped == False):
+                break
+    
+            swapped = False
+            end = end-1
+    
+            for i in range(end-1, start-1, -1):
+                if (lst[i] < lst[i + 1]):
+                    lst[i], lst[i + 1] = lst[i + 1], lst[i]
+                    swapped = True
+    
+            start = start + 1
+
+        return lst
 
 
     def Input(self):    #Teszt function
         print(r.AlphaOrInt(self.split))
         #print(r.SortInt(self.szam))
         #print(r.ReverseSortInt(self.szam))
-        print(r.SortStr(self.szoveg))
+
+        #print(r.SortStr(self.szoveg))
         print(r.ReverseSortStr(self.szoveg))
        
+        #print(r.CocktailSort(self.szoveg))
+        print(r.ReverseCocktailSort(self.szoveg))
        
 
 
 r = Rendezés()
-r.Beolvas("ki.txt")
+r.Beolvas("ki_hiba.txt")
 r.Listak()
 
 r.Input()
