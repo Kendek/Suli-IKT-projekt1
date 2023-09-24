@@ -98,11 +98,12 @@ class Rendezes:
         return lst
 
 
-    def CocktailSort(self, lst):    #Választott algoritmus, Koktél növekvő rendezés (int-re és string-re is alkalmazható)
+    def CocktailSortInt(self, lst):    #Választott algoritmus, Koktél növekvő rendezés int-re
         n = len(lst)
         swapped = True
         start = 0
         end = n-1
+
         while (swapped == True):
     
             swapped = False
@@ -128,7 +129,7 @@ class Rendezes:
         return lst
 
 
-    def ReverseCocktailSort(self, lst):    #Választott algoritmus, Koktél csökkenő rendezés (int-re és string-re is alkalmazható)
+    def ReverseCocktailSortInt(self, lst):    #Választott algoritmus, Koktél csökkenő rendezés int-re
         n = len(lst)
         swapped = True
         start = 0
@@ -149,6 +150,71 @@ class Rendezes:
             end = end-1
     
             for i in range(end-1, start-1, -1):
+                if (lst[i] < lst[i + 1]):
+                    lst[i], lst[i + 1] = lst[i + 1], lst[i]
+                    swapped = True
+    
+            start = start + 1
+
+        return lst
+
+
+    def CocktailSortStr(self, lst):    #Választott algoritmus, Koktél növekvő rendezés srting-re
+        n = len(lst)
+        swapped = True
+        start = 0
+        end = n-1
+
+        while (swapped == True):
+    
+            swapped = False
+
+            for i in range(start, end):
+                lst[i] = lst[i].lower()
+                if (lst[i] > lst[i + 1]):
+                    lst[i], lst[i + 1] = lst[i + 1], lst[i]
+                    swapped = True
+
+            if (swapped == False):
+                break
+    
+            swapped = False
+            end = end-1
+    
+            for i in range(end-1, start-1, -1):
+                lst[i] = lst[i].lower()
+                if (lst[i] > lst[i + 1]):
+                    lst[i], lst[i + 1] = lst[i + 1], lst[i]
+                    swapped = True
+    
+            start = start + 1
+
+        return lst
+    
+
+    def ReverseCocktailSorStr(self, lst):    #Választott algoritmus, Koktél csökkenő rendezés string-re
+        n = len(lst)
+        swapped = True
+        start = 0
+        end = n-1
+        while (swapped == True):
+    
+            swapped = False
+
+            for i in range(start, end):
+                lst[i] = lst[i].lower()
+                if (lst[i] < lst[i + 1]):
+                    lst[i], lst[i + 1] = lst[i + 1], lst[i]
+                    swapped = True
+
+            if (swapped == False):
+                break
+    
+            swapped = False
+            end = end-1
+    
+            for i in range(end-1, start-1, -1):
+                lst[i] = lst[i].lower()
                 if (lst[i] < lst[i + 1]):
                     lst[i], lst[i + 1] = lst[i + 1], lst[i]
                     swapped = True
@@ -186,48 +252,45 @@ class Rendezes:
                     print("Hibás bevitel!")
 
 
-            return rendez, algoritmus
+            return rendez, int(algoritmus)
 
 
-    def Output(self):   #A kiiratás
+    def Output(self, x):   #A kiiratás
 
         tipus = self.AlphaOrInt(self.split)
-        x = self.Input()
         rendez = x[0]
         algoritmus = x[1]
 
-        print(rendez)
-        print(algoritmus)
-        
         if (tipus == "int"):
-            print("Debug")
+
+
             if (rendez == "n" and algoritmus == 1):
                 print("Debug1")
                 print(self.SortInt(self.szam))
             if (rendez == "n" and algoritmus == 2):
-                print(self.CocktailSort(self.szam))
+                print(self.CocktailSortInt(self.szam))
             
             if (rendez == "cs" and algoritmus == 1):
                 print(self.ReverseSortInt(self.szam))
             if (rendez == "cs" and algoritmus == 2):
-                print(self.ReverseCocktailSort(self.szam))
+                print(self.ReverseCocktailSortInt(self.szam))
         
-        elif (tipus == "string"):
+        if (tipus == "string"):
 
             if (rendez == "n" and algoritmus == 1):
                 print(self.SortStr(self.szoveg))
             if (rendez == "n" and algoritmus == 2):
-                print(self.CocktailSort(self.szoveg))
+                print(self.CocktailSortStr(self.szoveg))
             
             if (rendez == "cs" and algoritmus == 1):
                 print(self.ReverseSortStr(self.szoveg))
             if (rendez == "cs" and algoritmus == 2):
-                print(self.ReverseCocktailSort(self.szoveg))
+                print(self.ReverseCocktailSorStr(self.szoveg))
 
 
 r = Rendezes()
-r.Beolvas("ki2.txt")
+r.Beolvas("ki.txt")
 r.Listak()
 
-#r.Input()
-r.Output()
+x = r.Input()
+r.Output(x)
