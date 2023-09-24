@@ -1,4 +1,5 @@
-class Rendezés:
+class Rendezes:
+
     def Beolvas(self, allomanynev):  #Beolvassuk a ki.txt
         self.alap = []
         with open(allomanynev, "r", encoding="UTF8") as file:
@@ -42,7 +43,7 @@ class Rendezés:
 
     def Listak(self):   #Külön listát csinál ha int vagy ha string
 
-        msg = r.AlphaOrInt(self.split)
+        msg = self.AlphaOrInt(self.split)
         self.szoveg = []
         self.szam = []
 
@@ -54,8 +55,7 @@ class Rendezés:
             for x in self.alap:
                 self.szam.append(int(x))
 
-        if (msg == "Hiba"):
-            print("Hibás a fájl beviteli karakterlánca!")
+        
 
     def SortInt(self, lst):     #Int növekvő sorrend
         
@@ -158,21 +158,76 @@ class Rendezés:
         return lst
 
 
-    def Input(self):    #Teszt function
-        print(r.AlphaOrInt(self.split))
-        #print(r.SortInt(self.szam))
-        #print(r.ReverseSortInt(self.szam))
+    def Input(self):    #Az input rész
+        
+        tipus = self.AlphaOrInt(self.split)
 
-        #print(r.SortStr(self.szoveg))
-        print(r.ReverseSortStr(self.szoveg))
-       
-        #print(r.CocktailSort(self.szoveg))
-        print(r.ReverseCocktailSort(self.szoveg))
-       
+        if (tipus == "Hiba"):
+            print("Hibás a fájl bemeneti karakterlánca!")
+        else:
+
+            while (True):
+                rendez = input("Növekvő vagy csökkenő legyen a rendezés? Írj be 'n' betűt ha növekvő vagy 'cs' betűt ha csökkenő rendezést szeretnél: ")
+
+                if (rendez == "n" or rendez == "cs"):
+                    break
+                else:
+                    print("Hibás bevitel! ")
+            
+
+            while (True):
+                print("A sor számának beírásával válassz a két rendezési algoritmus közül:\n\t1 Sima rendezési algotitmus\n\t2 Koktél rendezési algoritmus")
+
+                algoritmus= input("A választott szám: ")
+
+                if (algoritmus == "1" or algoritmus == "2"):
+                    break
+                else:
+                    print("Hibás bevitel!")
 
 
-r = Rendezés()
-r.Beolvas("ki_hiba.txt")
+            return rendez, algoritmus
+
+
+    def Output(self):   #A kiiratás
+
+        tipus = self.AlphaOrInt(self.split)
+        x = self.Input()
+        rendez = x[0]
+        algoritmus = x[1]
+
+        print(rendez)
+        print(algoritmus)
+        
+        if (tipus == "int"):
+            print("Debug")
+            if (rendez == "n" and algoritmus == 1):
+                print("Debug1")
+                print(self.SortInt(self.szam))
+            if (rendez == "n" and algoritmus == 2):
+                print(self.CocktailSort(self.szam))
+            
+            if (rendez == "cs" and algoritmus == 1):
+                print(self.ReverseSortInt(self.szam))
+            if (rendez == "cs" and algoritmus == 2):
+                print(self.ReverseCocktailSort(self.szam))
+        
+        elif (tipus == "string"):
+
+            if (rendez == "n" and algoritmus == 1):
+                print(self.SortStr(self.szoveg))
+            if (rendez == "n" and algoritmus == 2):
+                print(self.CocktailSort(self.szoveg))
+            
+            if (rendez == "cs" and algoritmus == 1):
+                print(self.ReverseSortStr(self.szoveg))
+            if (rendez == "cs" and algoritmus == 2):
+                print(self.ReverseCocktailSort(self.szoveg))
+
+
+r = Rendezes()
+r.Beolvas("ki2.txt")
 r.Listak()
 
-r.Input()
+#r.Input()
+r.Output()
