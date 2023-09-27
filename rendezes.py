@@ -1,3 +1,6 @@
+import re
+
+
 class Rendezes:
 
     def Beolvas(self, allomanynev):  #Beolvassuk a ki.txt
@@ -13,6 +16,9 @@ class Rendezes:
         s = 0
         S = True
         barmi_mas = 0
+
+        chars = re.compile("^[a-zA-Z]+$")
+
         for x in list:
             y = ''.join(x)
             try:
@@ -26,7 +32,7 @@ class Rendezes:
                 i += 1
             else:
                 S = y.isalpha()
-                if (S):
+                if (S == True and chars.match(y)):  #Meg nézi van-e benne magyar ékezetes betű
                     s += 1
                 else:
                     barmi_mas += 1
@@ -228,7 +234,7 @@ class Rendezes:
         tipus = self.AlphaOrInt(self.alap)
 
         if (tipus == "int"):
-            self.szam.append(character)
+            self.szam.append(int(character))
             return self.szam
         if (tipus == "string"):
             self.szoveg.append(character)
@@ -254,15 +260,15 @@ class Rendezes:
             while (True):
                 print("A sor számának beírásával válassz a két rendezési algoritmus közül:\n\t1 Sima rendezési algotitmus\n\t2 Koktél rendezési algoritmus")
 
-                algoritmus= int(input("A választott szám: "))
+                algoritmus= input("A választott szám: ")
 
-                if (algoritmus == 1 or algoritmus == 2):
+                if (algoritmus == "1" or algoritmus == "2"):
                     break
                 else:
                     print("Hibás bevitel!")
 
 
-            return rendez, algoritmus
+            return rendez, int(algoritmus)
 
 
     def Output(self, x):   #A kiiratás
@@ -298,7 +304,7 @@ class Rendezes:
                 if (rendez == "cs" and algoritmus == 1):
                     print(self.ReverseSortStr(self.szoveg))
                 if (rendez == "cs" and algoritmus == 2):
-                    print(self.ReverseCocktailSorStr(self.szoveg))
+                    print(self.ReverseCocktailSorStr(self.ReverseCocktailSorStr((self.szoveg))))        #Az utolsó szót kihagyta a rendzésből, de így működik
 
     def NewWordInput(self):
 
@@ -311,19 +317,19 @@ class Rendezes:
                 new_character = input("Adj meg egy számot amelyet a listához szeretnél adni: ")
                 
                 tipus = self.AlphaOrInt(new_character)
-                
+
                 if (tipus != "int"):
                     print("Hibás bevitel!")
                 else:
                     break
             
-            return int(new_character)
+            return new_character
         
 
         if (fajl_tipus == "string"):
             while (True):
                 
-                print("A beolvasott fájl szavakból áll!")
+                print("A beolvasott fájl szavakból áll (Angol ABC)!")
                 new_character = input("Adj meg egy szavat amelyet a listához szeretnél adni: ")
                 
                 tipus = self.AlphaOrInt(new_character)
@@ -372,7 +378,7 @@ class Rendezes:
 
 
 r = Rendezes()
-r.Beolvas("ki.txt")
+r.Beolvas("ki2.txt")
 r.Listak()
 
 x = r.Input()
