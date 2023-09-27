@@ -6,10 +6,6 @@ class Rendezes:
            self.alap = file.read().split(";")
         del self.alap[-1]  #Alap lista, kivettem az üres sort
         
-        self.split = []
-        for x in self.alap:
-            self.split.append(x.strip("-"))
-
 
     def AlphaOrInt(self, list):  #Eldönti hogy szám vagy szöveg    
         i = 0
@@ -19,8 +15,11 @@ class Rendezes:
         barmi_mas = 0
         for x in list:
             y = ''.join(x)
-            try:     
-                int(y)
+            try:
+                if (y[0] == "-"):
+                    int(y[1:])
+                else:
+                    int(y)
             except ValueError:
                 I = False
             if (I):
@@ -43,7 +42,7 @@ class Rendezes:
 
     def Listak(self):   #Külön listát csinál ha int vagy ha string
 
-        msg = self.AlphaOrInt(self.split)
+        msg = self.AlphaOrInt(self.alap)
         self.szoveg = []
         self.szam = []
 
@@ -224,12 +223,23 @@ class Rendezes:
         return lst
 
 
+    def NewWord(self, character):       #Egy új szót vagy számot beilleszt a listába
+
+        tipus = self.AlphaOrInt(self.alap)
+
+        if (tipus == "int"):
+            self.szam.append(character)
+            return self.szam
+        if (tipus == "string"):
+            self.szoveg.append(character)
+            return self.szoveg
+
     def Input(self):    #Az input rész
         
-        tipus = self.AlphaOrInt(self.split)
+        tipus = self.AlphaOrInt(self.alap)
 
         if (tipus == "Hiba"):
-            print("Hibás a fájl bemeneti karakterlánca!")
+            return "Hiba"
         else:
 
             while (True):
@@ -244,48 +254,121 @@ class Rendezes:
             while (True):
                 print("A sor számának beírásával válassz a két rendezési algoritmus közül:\n\t1 Sima rendezési algotitmus\n\t2 Koktél rendezési algoritmus")
 
-                algoritmus= input("A választott szám: ")
+                algoritmus= int(input("A választott szám: "))
 
-                if (algoritmus == "1" or algoritmus == "2"):
+                if (algoritmus == 1 or algoritmus == 2):
                     break
                 else:
                     print("Hibás bevitel!")
 
 
-            return rendez, int(algoritmus)
+            return rendez, algoritmus
 
 
     def Output(self, x):   #A kiiratás
 
-        tipus = self.AlphaOrInt(self.split)
+        tipus = self.AlphaOrInt(self.alap)
         rendez = x[0]
         algoritmus = x[1]
 
-        if (tipus == "int"):
+        if (x == "Hiba"):
+            print("Hibás a fájl bemeneti karakterlánca!")
+        else:
+
+            if (tipus == "int"):
 
 
-            if (rendez == "n" and algoritmus == 1):
-                print("Debug1")
-                print(self.SortInt(self.szam))
-            if (rendez == "n" and algoritmus == 2):
-                print(self.CocktailSortInt(self.szam))
+                if (rendez == "n" and algoritmus == 1):
+                    print(self.SortInt(self.szam))
+                if (rendez == "n" and algoritmus == 2):
+                    print(self.CocktailSortInt(self.szam))
+                
+                if (rendez == "cs" and algoritmus == 1):
+                    print(self.ReverseSortInt(self.szam))
+                if (rendez == "cs" and algoritmus == 2):
+                    print(self.ReverseCocktailSortInt(self.szam))
             
-            if (rendez == "cs" and algoritmus == 1):
-                print(self.ReverseSortInt(self.szam))
-            if (rendez == "cs" and algoritmus == 2):
-                print(self.ReverseCocktailSortInt(self.szam))
+            if (tipus == "string"):
+
+                if (rendez == "n" and algoritmus == 1):
+                    print(self.SortStr(self.szoveg))
+                if (rendez == "n" and algoritmus == 2):
+                    print(self.CocktailSortStr(self.szoveg))
+                
+                if (rendez == "cs" and algoritmus == 1):
+                    print(self.ReverseSortStr(self.szoveg))
+                if (rendez == "cs" and algoritmus == 2):
+                    print(self.ReverseCocktailSorStr(self.szoveg))
+
+    def NewWordInput(self):
+
+        fajl_tipus = self.AlphaOrInt(self.alap)
+
+        if (fajl_tipus == "int"):
+            while (True):
+                
+                print("A beolvasott fájl számokból áll!")
+                new_character = input("Adj meg egy számot amelyet a listához szeretnél adni: ")
+                
+                tipus = self.AlphaOrInt(new_character)
+                
+                if (tipus != "int"):
+                    print("Hibás bevitel!")
+                else:
+                    break
+            
+            return int(new_character)
         
-        if (tipus == "string"):
 
-            if (rendez == "n" and algoritmus == 1):
-                print(self.SortStr(self.szoveg))
-            if (rendez == "n" and algoritmus == 2):
-                print(self.CocktailSortStr(self.szoveg))
+        if (fajl_tipus == "string"):
+            while (True):
+                
+                print("A beolvasott fájl szavakból áll!")
+                new_character = input("Adj meg egy szavat amelyet a listához szeretnél adni: ")
+                
+                tipus = self.AlphaOrInt(new_character)
+                
+                if (tipus != "string"):
+                    print("Hibás bevitel!")
+                else:
+                    break
+
+            return new_character
+        
+    
+    def NewWordOutput(self, x, character):
+
+        fajl_tipus = self.AlphaOrInt(self.alap)
+        rendez = x[0]
+        algoritmus = x[1]
+
+        if (x == "Hiba"):
+            print("")       #Nem szeretném mégegyszer ugyanazt kiírni
+        else:
             
-            if (rendez == "cs" and algoritmus == 1):
-                print(self.ReverseSortStr(self.szoveg))
-            if (rendez == "cs" and algoritmus == 2):
-                print(self.ReverseCocktailSorStr(self.szoveg))
+            if (fajl_tipus == "int"):
+
+                if (rendez == "n" and algoritmus == 1):
+                    print(self.SortInt(self.NewWord(character)))
+                if (rendez == "n" and algoritmus == 2):
+                    print(self.CocktailSortInt(self.NewWord(character)))
+                
+                if (rendez == "cs" and algoritmus == 1):
+                    print(self.ReverseSortInt(self.NewWord(character)))
+                if (rendez == "cs" and algoritmus == 2):
+                    print(self.ReverseCocktailSortInt(self.NewWord(character)))
+            
+            if (fajl_tipus == "string"):
+
+                if (rendez == "n" and algoritmus == 1):
+                    print(self.SortStr(self.NewWord(character)))
+                if (rendez == "n" and algoritmus == 2):
+                    print(self.CocktailSortStr(self.NewWord(character)))
+                
+                if (rendez == "cs" and algoritmus == 1):
+                    print(self.ReverseSortStr(self.NewWord(character)))
+                if (rendez == "cs" and algoritmus == 2):
+                    print(self.ReverseCocktailSorStr(self.NewWord(character)))
 
 
 r = Rendezes()
@@ -294,3 +377,6 @@ r.Listak()
 
 x = r.Input()
 r.Output(x)
+
+y = r.NewWordInput()
+r.NewWordOutput(x, y)
