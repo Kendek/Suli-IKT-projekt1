@@ -315,14 +315,22 @@ class Rendezes:
                 
                 print("A beolvasott fájl számokból áll!")
                 new_character = input("Adj meg egy számot amelyet a listához szeretnél adni: ")
-                
-                tipus = self.AlphaOrInt(new_character)
 
-                if (tipus != "int"):
-                    print("Hibás bevitel!")
-                else:
+                I = True
+                i = 0
+
+                try:
+                    if (new_character[0] == "-"):       #Kényszer megoldás, de működik
+                        int(new_character[1:])
+                    else:
+                        int(new_character)
+                except ValueError:
+                    I = False
+                if (I):
                     break
-            
+                else:
+                    print("Hibás bevitel!")
+                
             return new_character
         
 
