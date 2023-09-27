@@ -386,7 +386,7 @@ class Rendezes:
 
 
 r = Rendezes()
-r.Beolvas("ki2.txt")
+r.Beolvas("ki.txt")
 r.Listak()
 
 x = r.Input()
