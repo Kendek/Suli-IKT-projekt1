@@ -254,18 +254,19 @@ class Rendezes:
                 if (rendez == "n" or rendez == "cs"):
                     break
                 else:
-                    print("Hibás bevitel! ")
+                    print("\n\tHibás bevitel! ")
             
 
             while (True):
-                print("A sor számának beírásával válassz a két rendezési algoritmus közül:\n\t1 Sima rendezési algotitmus\n\t2 Koktél rendezési algoritmus")
+                print("\nA sor számának beírásával válassz a két rendezési algoritmus közül:\n\t1 Sima rendezési algotitmus\n\t2 Koktél rendezési algoritmus")
 
                 algoritmus= input("A választott szám: ")
+                print("")
 
                 if (algoritmus == "1" or algoritmus == "2"):
                     break
                 else:
-                    print("Hibás bevitel!")
+                    print("\n\tHibás bevitel!")
 
 
             return rendez, int(algoritmus)
@@ -313,11 +314,10 @@ class Rendezes:
         if (fajl_tipus == "int"):
             while (True):
                 
-                print("A beolvasott fájl számokból áll!")
+                print("\nA beolvasott fájl számokból áll!")
                 new_character = input("Adj meg egy számot amelyet a listához szeretnél adni: ")
 
                 I = True
-                i = 0
 
                 try:
                     if (new_character[0] == "-"):       #Kényszer megoldás, de működik
@@ -329,7 +329,7 @@ class Rendezes:
                 if (I):
                     break
                 else:
-                    print("Hibás bevitel!")
+                    print("\n\tHibás bevitel!")
                 
             return new_character
         
@@ -337,13 +337,13 @@ class Rendezes:
         if (fajl_tipus == "string"):
             while (True):
                 
-                print("A beolvasott fájl szavakból áll (Angol ABC)!")
+                print("\nA beolvasott fájl szavakból áll (Angol ABC)!")
                 new_character = input("Adj meg egy szavat amelyet a listához szeretnél adni: ")
                 
                 tipus = self.AlphaOrInt(new_character)
                 
                 if (tipus != "string"):
-                    print("Hibás bevitel!")
+                    print("\n\tHibás bevitel!")
                 else:
                     break
 
@@ -359,7 +359,8 @@ class Rendezes:
         if (x == "Hiba"):
             print("")       #Nem szeretném mégegyszer ugyanazt kiírni
         else:
-            
+            print("")   #Üres sor, hogy átlátható legyen
+
             if (fajl_tipus == "int"):
 
                 if (rendez == "n" and algoritmus == 1):
